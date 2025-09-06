@@ -16,6 +16,10 @@ This is the backend for the Task Manager project built with **Node.js**, **Expre
 > the updated code having auth login and register with projected routes is push on "auth branch
 > CHECK THE "auth" BRANCH  with registeration,login and protected route features
 
+
+#chnages
+added AUTH buttons and added gsap animations
+added auth button for login and register in auth branch
 ## Setup
 
 1. Clone the repository:
