@@ -7,7 +7,7 @@ const TaskItem = ({ task, onEdit }) => {
   const dispatch = useDispatch()
 
   return (
-    <div className="flex gap-4 items-start bg-white rounded-2xl p-4 shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+    <div className="flex gap-4 items-start bg-gray-900 rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
       <input
         type="checkbox"
         checked={task.completed}
@@ -18,7 +18,9 @@ const TaskItem = ({ task, onEdit }) => {
         <div className="flex justify-between items-center mb-1">
           <h3
             className={`text-lg ${
-              task.completed ? 'line-through text-gray-400' : 'font-semibold text-gray-800'
+              task.completed
+                ? 'line-through text-gray-500'
+                : 'font-semibold text-white'
             }`}
           >
             {task.title}
@@ -26,22 +28,22 @@ const TaskItem = ({ task, onEdit }) => {
           <div className="flex gap-2">
             <button
               onClick={() => onEdit(task)}
-              className="flex items-center gap-1 text-indigo-600 hover:text-indigo-800 border border-indigo-200 hover:border-indigo-300 rounded-lg px-3 py-1 text-sm transition"
+              className="flex items-center gap-1 text-indigo-400 hover:text-indigo-200 border border-indigo-700 hover:border-indigo-500 rounded-lg px-3 py-1 text-sm transition"
             >
               <FiEdit2 size={16} /> Edit
             </button>
             <button
               onClick={() => dispatch(deleteTask(task.id))}
-              className="flex items-center gap-1 text-red-600 hover:text-red-800 border border-red-200 hover:border-red-300 rounded-lg px-3 py-1 text-sm transition"
+              className="flex items-center gap-1 text-red-400 hover:text-red-200 border border-red-700 hover:border-red-500 rounded-lg px-3 py-1 text-sm transition"
             >
               <FiTrash2 size={16} /> Delete
             </button>
           </div>
         </div>
         {task.description && (
-          <p className="text-sm text-gray-600 mb-2">{task.description}</p>
+          <p className="text-sm text-gray-300 mb-2">{task.description}</p>
         )}
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-500">
           {new Date(task.createdAt).toLocaleString()}
         </p>
       </div>

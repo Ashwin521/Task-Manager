@@ -33,10 +33,10 @@ const TaskForm = ({ editingTask, onFinish }) => {
 
     const btn = buttonRef.current
     btn.addEventListener("mouseenter", () => {
-      gsap.to(btn, { scale: 1.05, boxShadow: "0 0 12px rgba(99,102,241,0.5)", duration: 0.2 })
+      gsap.to(btn, { scale: 1.05, boxShadow: "0 0 15px rgba(59,130,246,0.8)", duration: 0.2 })
     })
     btn.addEventListener("mouseleave", () => {
-      gsap.to(btn, { scale: 1, boxShadow: "0 4px 10px rgba(0,0,0,0.15)", duration: 0.2 })
+      gsap.to(btn, { scale: 1, boxShadow: "0 0 10px rgba(0,0,0,0.4)", duration: 0.2 })
     })
   }, [editingTask])
 
@@ -57,9 +57,13 @@ const TaskForm = ({ editingTask, onFinish }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-2xl p-8 max-w-3xl mx-auto border border-gray-200"
+      className="bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 
+                 backdrop-blur-lg shadow-xl rounded-2xl p-8 max-w-3xl mx-auto border border-gray-700"
     >
-      <h2 ref={headingRef} className="text-2xl font-bold mb-6 text-gray-800 text-center">
+      <h2
+        ref={headingRef}
+        className="text-3xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500"
+      >
         {(editingTask ? "Edit Task" : "Add New Task")
           .split("")
           .map((letter, index) => (
@@ -73,12 +77,16 @@ const TaskForm = ({ editingTask, onFinish }) => {
           placeholder="Task title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="flex-1 border border-gray-300 rounded-xl px-5 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-inner transition duration-200 placeholder-gray-400"
+          className="flex-1 bg-gray-800 text-white border border-gray-600 rounded-xl px-5 py-3 
+                     focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-inner 
+                     transition duration-200 placeholder-gray-400"
         />
         <button
           ref={buttonRef}
           type="submit"
-          className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200"
+          className="bg-gradient-to-r from-indigo-500 to-purple-600 
+                     text-white font-semibold px-6 py-3 rounded-xl shadow-lg 
+                     transition-all duration-200"
         >
           {editingTask ? 'Save Changes' : 'Add Task'}
         </button>
@@ -88,7 +96,9 @@ const TaskForm = ({ editingTask, onFinish }) => {
         placeholder="Description (optional)"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-full mt-5 border border-gray-300 rounded-xl px-5 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-inner transition duration-200 resize-none placeholder-gray-400"
+        className="w-full mt-5 bg-gray-800 text-white border border-gray-600 rounded-xl 
+                   px-5 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 
+                   shadow-inner transition duration-200 resize-none placeholder-gray-400"
         rows={4}
       />
     </form>

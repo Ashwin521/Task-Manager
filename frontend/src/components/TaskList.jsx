@@ -29,21 +29,23 @@ const TaskList = () => {
           <select
             value={filter}
             onChange={(e) => dispatch(setFilter(e.target.value))}
-            className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
+            className="bg-gray-900 text-white border border-gray-600 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
           >
             <option value="all">All</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
           </select>
+
           <select
             value={sort}
             onChange={(e) => dispatch(setSort(e.target.value))}
-            className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
+            className="bg-gray-900 text-white border border-gray-600 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
           >
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
           </select>
         </div>
+
         <button
           onClick={() => dispatch(clearCompleted())}
           className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition transform hover:scale-105"
@@ -54,7 +56,7 @@ const TaskList = () => {
 
       <div className="space-y-3">
         {tasks.length === 0 && (
-          <p className="text-center text-gray-500 mt-4">No tasks yet</p>
+          <p className="text-center text-gray-400 mt-4">No tasks yet</p>
         )}
         {tasks.map((task) => (
           <TaskItem key={task.id} task={task} onEdit={setEditingTask} />

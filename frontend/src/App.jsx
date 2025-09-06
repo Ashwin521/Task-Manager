@@ -12,7 +12,7 @@ import AuthButtons from "./components/AuthButtons";
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-black text-white">
         <Header />
 
         <AuthButtons />
