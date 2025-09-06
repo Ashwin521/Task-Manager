@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import PrivateRoute from "./components/ProtectedRoute"; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthButtons from "./components/AuthButtons";
+
 
 export default function App() {
   return (
@@ -13,9 +15,10 @@ export default function App() {
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Header />
 
+        <AuthButtons />
+
         <main className="flex-1 py-6 px-4">
           <Routes>
-           
             <Route
               path="/"
               element={
@@ -24,7 +27,6 @@ export default function App() {
                 </PrivateRoute>
               }
             />
-
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
@@ -42,3 +44,4 @@ export default function App() {
     </Router>
   );
 }
+
