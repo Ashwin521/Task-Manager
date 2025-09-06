@@ -12,8 +12,9 @@ This is the backend for the Task Manager project built with **Node.js**, **Expre
 
 ##  Note
 
-> The login and register routes are **not functional yet**.  
-> Currently, they are placeholders and do not fully handle authentication.
+> added Authenticationa and connected frontend and backend with mongodb
+> the updated code having auth login and register with projected routes is push on "auth branch
+> CHECK THE "auth" BRANCH  with registeration,login and protected route features
 
 ## Setup
 
