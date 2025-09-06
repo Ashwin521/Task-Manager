@@ -1,19 +1,28 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error } = useSelector((state) => state.auth);
+
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(form)).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") navigate("/");
-    });
+
+    dispatch(loginUser(form))
+      .unwrap()
+      .then(() => {
+        toast.success("Login successful!");
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(err || "Login failed");
+      });
   };
 
   return (
@@ -36,7 +45,6 @@ export default function Login() {
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
         />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
