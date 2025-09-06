@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import TaskList from "./components/TaskList";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import PrivateRoute from "./components/ProtectedRoute"; // ✅ Make sure this path is correct
+import PrivateRoute from "./components/ProtectedRoute"; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,7 +15,7 @@ export default function App() {
 
         <main className="flex-1 py-6 px-4">
           <Routes>
-            {/* ✅ Protected route */}
+           
             <Route
               path="/"
               element={
@@ -25,7 +25,6 @@ export default function App() {
               }
             />
 
-            {/* Public routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
