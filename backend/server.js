@@ -26,9 +26,6 @@
 
 // export {app}
 
-
-
-
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
@@ -40,6 +37,26 @@ dotenv.config();
 connectDB();
 
 const app = express();
+<<<<<<< HEAD
+=======
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://task-manager-frontend-mu-five.vercel.app"
+];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  }
+  if (req.method === "OPTIONS") return res.sendStatus(200);
+  next();
+});
+
+>>>>>>> deploy
 app.use(express.json());
 
 // Function to handle CORS for each request
@@ -64,5 +81,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ msg: "Server Error" });
 });
 
+<<<<<<< HEAD
 // Export as serverless function
+=======
+>>>>>>> deploy
 export default serverless(app);
