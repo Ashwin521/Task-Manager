@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
-const STORAGE_KEY = "tasks_data";
+const userData = JSON.parse(localStorage.getItem("user")) || { id: "guest" };
+const STORAGE_KEY = `tasks_data-${userData?.id}`;
 
 const loadTasks = () => {
   try {
@@ -20,7 +21,7 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
     list: loadTasks(),
-    filter: "all", 
+    filter: "all",
     sort: "newest",
   },
   reducers: {
