@@ -5,10 +5,15 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-//route to register user
+// REGISTER
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ msg: "All fields are required" });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ msg: "Email already exists" });
 
@@ -17,13 +22,21 @@ router.post("/register", async (req, res) => {
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
-    res.status(201).json({ msg: "User registered successfully" });
+    // ✅ Auto-login after register
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.status(201).json({
+      token,
+      user: { id: newUser._id, name: newUser.name, email: newUser.email },
+    });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
 });
 
-// router to logging in user
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -35,10 +48,13 @@ router.post("/login", async (req, res) => {
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     });
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({
+      token,
+      user: { id: user._id, name: user.name, email: user.email },
+    });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }

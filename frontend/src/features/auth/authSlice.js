@@ -3,24 +3,39 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/auth";
 
-export const registerUser = createAsyncThunk("auth/register", async (data, thunkAPI) => {
-  try {
-    const res = await axios.post(`${API_URL}/register`, data);
-    return res.data;
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.response?.data?.msg || "Registration failed");
-  }
-});
 
-export const loginUser = createAsyncThunk("auth/login", async (data, thunkAPI) => {
-  try {
-    const res = await axios.post(`${API_URL}/login`, data);
-    localStorage.setItem("token", res.data.token);
-    return res.data;
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.response?.data?.msg || "Login failed");
+export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.post(`${API_URL}/register`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      return res.data; 
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.msg || "Registration failed"
+      );
+    }
   }
-});
+);
+
+export const loginUser = createAsyncThunk(
+  "auth/login",
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.post(`${API_URL}/login`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      localStorage.setItem("token", res.data.token);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.msg || "Login failed"
+      );
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -40,11 +55,15 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;   
+        state.token = action.payload.token; 
+        localStorage.setItem("token", action.payload.token);
         state.loading = false;
         state.error = null;
       })
@@ -53,6 +72,7 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
+      
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
