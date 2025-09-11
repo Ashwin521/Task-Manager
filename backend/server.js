@@ -9,8 +9,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors({origin:`https://task-manager-frontend-mu-five.vercel.app
-`}))
+app.use(cors({origin:`*`}))
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
